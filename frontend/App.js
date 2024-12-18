@@ -1,17 +1,28 @@
 import React, { useEffect } from 'react';
-import { Text, View } from 'react-native';
+import { View, Text, StyleSheet } from 'react-native';
 import axios from 'axios';
+import { API_URL } from '@env'; // Import environment variable
 
 export default function App() {
-  useEffect(() => {
-    axios.get('http://localhost:5000')
-      .then(response => console.log(response.data))
-      .catch(error => console.log(error));
-  }, []);
+    useEffect(() => {
+        // Use environment variable for API URL
+        axios.get(`${API_URL}/health`) // Access the health endpoint
+            .then(response => console.log('API Response:', response.data))
+            .catch(error => console.error('API Error:', error));
+    }, []);
 
-  return (
-    <View>
-      <Text>Welcome to FörderPro!</Text>
-    </View>
-  );
+    return (
+        <View style={styles.container}>
+            <Text>Welcome to FörderPro!</Text>
+        </View>
+    );
 }
+
+const styles = StyleSheet.create({
+    container: {
+        flex: 1,
+        backgroundColor: '#fff',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+});
